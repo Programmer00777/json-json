@@ -1,0 +1,18 @@
+{
+    "data": [
+        {
+            "firstName": "Joe",
+            "lastName": "Jackson",
+            "gender": "male",
+            "age": 28,
+            "number": "7349282382"
+        },
+        {
+            "firstName": "Joe",
+            "lastName": "Bern",
+            "gender": "male",
+            "age": 32,
+            "number": "456754675"
+        }
+    ]
+}
