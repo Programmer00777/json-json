@@ -6,7 +6,9 @@ import com.example.task2attempt3.modules.SortByRule;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,11 +23,13 @@ public class ClientJsonParser {
     private Object excludeRule;
     private Object sortByRule;
     private Map<String, Object> listOfRules = new HashMap<>();
-    private JSONObject updatedData;
+    private JSONObject updatedData = new JSONObject();
+    private JSONArray satisfyingData = new JSONArray(); // new
+    private JSONObject clientData = new JSONObject();
 
     public ClientJsonParser(JSONObject clientJsonData) {
         this.condition = (JSONObject) clientJsonData.get("condition");
-        this.updatedData = (JSONObject) clientJsonData.get("data");
+        this.clientData.put("data", clientJsonData.get("data"));
 
         if (condition.containsKey("include")) {
             this.includeRule = condition.get("include");
@@ -50,28 +54,40 @@ public class ClientJsonParser {
                 if (ruleName.equals("include")) {
                     IncludeRule include = new IncludeRule();
                     for (Object includeRule : (JSONArray) rule) {
-                        updatedData = include.applyRule(updatedData, (JSONObject) includeRule);
+                        updatedData = include.applyRule(clientData, (JSONObject) includeRule);
+                        for (Object jsonObject : (JSONArray) updatedData.get("data")) {
+                            satisfyingData.add((JSONObject) jsonObject);
+                        }
                     }
                 }
                 if (ruleName.equals("exclude")) {
                     ExcludeRule exclude = new ExcludeRule();
                     for (Object excludeRule : (JSONArray) rule) {
-                        updatedData = exclude.applyRule(updatedData, (JSONObject) excludeRule);
+                        updatedData = exclude.applyRule(clientData, (JSONObject) excludeRule);
+                        for (Object jsonObject : (JSONArray) updatedData.get("data")) {
+                            satisfyingData.add((JSONObject) jsonObject);
+                        }
                     }
                 }
                 if (ruleName.equals("sort_by")) {
                     SortByRule sort = new SortByRule();
                     for (Object sortBy : (JSONArray) rule) {
+                        JSONObject dataToSort = new JSONObject();
+                        dataToSort.put("data", satisfyingData);
                         JSONObject sortByRuleWrapper = new JSONObject();
-                        sortByRuleWrapper.put("sort_by", rule);
-                        updatedData = sort.applyRule(updatedData, sortByRuleWrapper);
+                        sortByRuleWrapper.put("sort_by", sortBy);
+                        JSONArray jsonArrayWrapper = new JSONArray();
+                        for (Object object : (JSONArray) sort.applyRule(dataToSort, sortByRuleWrapper).get("data")) {
+                            jsonArrayWrapper.add(object);
+                        }
+                        satisfyingData = jsonArrayWrapper;
                     }
                 }
             });
         }
 
         JSONObject finalResult = new JSONObject();
-        finalResult.put("result", updatedData);
+        finalResult.put("result", satisfyingData);
 
         return finalResult;
     }
