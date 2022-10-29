@@ -5,6 +5,10 @@ import org.json.simple.JSONObject;
 
 import java.util.List;
 
+/**
+ *  Module called IncludeRule. Extends an abstract class Rule.
+ *  Used to include JSON data by key-value pairs.
+ */
 public class IncludeRule extends Rule {
     @Override
     public JSONObject applyRule(JSONObject document, JSONObject rule) {

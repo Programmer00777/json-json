@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ *  Module called SortByRule. Extends an abstract class Rule.
+ *  Used to sort JSON data by keys.
+ */
 public class SortByRule extends Rule {
     @Override
     public JSONObject applyRule(JSONObject document, JSONObject rule) {

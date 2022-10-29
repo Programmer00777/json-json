@@ -5,10 +5,10 @@ import com.example.task2attempt3.modules.IncludeRule;
 import com.example.task2attempt3.modules.SortByRule;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,6 +18,7 @@ import java.util.Map;
  * New modules with rules can be added in here.
  */
 public class ClientJsonParser {
+    private final static Logger LOGGER = LoggerFactory.getLogger(ClientJsonParser.class);
     private JSONObject condition;
     private Object includeRule;
     private Object excludeRule;
@@ -28,6 +29,10 @@ public class ClientJsonParser {
     private JSONObject clientData = new JSONObject();
 
     public ClientJsonParser(JSONObject clientJsonData) {
+        if (!clientJsonData.containsKey("data") || !clientJsonData.containsKey("condition")) {
+            LOGGER.error("JSON data doesn't contain either 'data' or 'condition' key! (or both)");
+            System.exit(0);
+        }
         this.condition = (JSONObject) clientJsonData.get("condition");
         this.clientData.put("data", clientJsonData.get("data"));
 

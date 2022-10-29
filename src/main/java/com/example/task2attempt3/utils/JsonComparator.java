@@ -4,6 +4,9 @@ import org.json.simple.JSONObject;
 
 import java.util.Comparator;
 
+/**
+ * JSON Comparator is used to compare JSON objects by keys.
+ */
 public class JsonComparator implements Comparator<JSONObject> {
     private String keyToSortBy;
 

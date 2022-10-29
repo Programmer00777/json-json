@@ -9,6 +9,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+/**
+ * File conversion service used to convert files of type MultipartFile to File.
+ */
 @Service
 public class FileConverterService {
     private final static Logger LOGGER = LoggerFactory.getLogger(FileConverterService.class);

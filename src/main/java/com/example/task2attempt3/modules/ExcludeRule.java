@@ -5,6 +5,10 @@ import org.json.simple.JSONObject;
 
 import java.util.List;
 
+/**
+ * Module called ExcludeRule. Extends an abstract class Rule.
+ * Used to exclude JSON data by key-value pairs.
+ */
 public class ExcludeRule extends Rule {
     @Override
     public JSONObject applyRule(JSONObject document, JSONObject rule) {

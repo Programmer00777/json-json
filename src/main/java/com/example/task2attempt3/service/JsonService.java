@@ -12,6 +12,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * JSON Service is used to accept the JSON file, read it and return the result (JSON data) after applying the rules
+ * (if there's any).
+ */
 @Service
 public class JsonService {
     private final static Logger LOGGER = LoggerFactory.getLogger(JsonService.class);

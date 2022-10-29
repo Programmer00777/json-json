@@ -12,10 +12,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 
+/**
+ * JSON Controller is used to process the .json file uploading.
+ * You should upload only files with .json extension. If you upload some other files,
+ * you'll receive an appropriate message in the console that file's extension is wrong.
+ */
 @Controller
 @RequestMapping(value = "/json")
 public class JsonController {

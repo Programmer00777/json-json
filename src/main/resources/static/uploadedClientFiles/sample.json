@@ -2,6 +2,6 @@
 	"data": [
 		{"name": "John", "email": "john2@mail.com", "age": 27},
 		{"name": "John", "email": "john1@mail.com", "age": 34},
-		{"name": "Jane", "email": "jane@mail.com", "age": 30}],
+		{"name": "Jane", "email": "jane@mail.com", "age: 30}],
 	"condition": {"exclude": [{"email": "john1@mail.com"}, {"em32ail": "john1@mail.com"}], "sort_by": ["email"]}
 }
